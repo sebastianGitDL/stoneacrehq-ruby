@@ -8,8 +8,8 @@ describe Member do
     before(:each) do
       # set the following values in order to test:
       api_key = ''
-      terms_of_membership_id = 1
-      club_id = 1
+      @terms_of_membership_id = 1
+      @club_id = 1
       ####
       StoneacreHq.config(:api_key => api_key, :production => false) 
     end
@@ -28,7 +28,7 @@ describe Member do
         phone_area_code: 123,
         phone_local_number: 1234,
         birth_date: DateTime.now,
-        terms_of_membership_id: terms_of_membership_id,
+        terms_of_membership_id: @terms_of_membership_id,
         gender: "M",
         country: "US"
       }
@@ -77,7 +77,7 @@ describe Member do
 
     it "retrieve products" do
       client = StoneacreHq::Product.new
-      response = client.find_all_by_product_skus(club_id, ['KIT-CARD,DOES-NOT-EXIST'])
+      response = client.find_all_by_product_skus(@club_id, ['KIT-CARD,DOES-NOT-EXIST'])
       response.status.should eql 200 
     end
   end
