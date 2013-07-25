@@ -76,7 +76,7 @@ module StoneacreHq
                             } 
                           })
 
-      @conn.post MEMBER_URL, post_message
+      @conn.post MEMBER_URL, { member: post_message }
     end
 
     ##
