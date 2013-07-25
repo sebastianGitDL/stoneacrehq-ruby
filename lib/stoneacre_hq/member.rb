@@ -22,7 +22,7 @@ module StoneacreHq
         puts answer.inspect
         member_data[:prospect_id] = answer[:prospect_id] if answer[:code] == "000"
       end
-      post_message = {
+      member_message = {
         first_name: member_data[:first_name], 
         last_name: member_data[:last_name], 
         address: member_data[:address], 
@@ -63,19 +63,26 @@ module StoneacreHq
         joint: campaign_data[:joint]
       }
 
-      post_message.merge!(credit_card_data ? {
+      if credit_card_data
+        member_message.merge!({
                             credit_card: {
                               number: credit_card_data[:number], 
                               expire_month: credit_card_data[:expire_month], 
                               expire_year: credit_card_data[:expire_year]
                             } 
-                          } : { 
-                            setter: { 
-                              cc_blank: true
-                            } 
                           })
+      end
 
-      @conn.post MEMBER_URL, { api_key: StoneacreHq.config[:api_key], member: post_message }
+      post_message = { 
+        api_key: StoneacreHq.config[:api_key], 
+        member: member_message 
+      }.merge(credit_card_data.nil? ? { 
+                setter: { 
+                  cc_blank: true
+                } 
+              } : {})
+
+      @conn.post MEMBER_URL, post_message
     end
 
     ##
