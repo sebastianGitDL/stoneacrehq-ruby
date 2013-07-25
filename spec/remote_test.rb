@@ -28,6 +28,7 @@ describe Member do
         phone_area_code: 123,
         phone_local_number: 1234,
         birth_date: DateTime.now,
+        terms_of_membership_id: terms_of_membership_id,
         gender: "M",
         country: "US"
       }
@@ -43,7 +44,6 @@ describe Member do
 
     def create_campaign
       {
-        terms_of_membership_id: terms_of_membership_id,
         enrollment_amount: 0.50,
         product_sku: Faker::Lorem.word,
         product_description: Faker::Lorem.word,

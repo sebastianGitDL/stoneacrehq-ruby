@@ -31,7 +31,7 @@ module StoneacreHq
             email: member_data[:email], 
             gender: member_data[:gender], 
             type_of_phone_number: member_data[:type_of_phone_number], 
-            terms_of_memberhips_id: member_data[:terms_of_memberhips_id], 
+            terms_of_memberhip_id: member_data[:terms_of_memberhip_id], 
             birth_date: member_data[:birth_date], 
             product_sku: campaign_data[:product_sku], 
             product_description: campaign_data[:product_description], 
