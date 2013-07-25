@@ -23,7 +23,6 @@ module StoneacreHq
         member_data[:prospect_id] = answer[:prospect_id] if answer[:code] == "000"
       end
       post_message = {
-        api_key: StoneacreHq.config[:api_key],
         first_name: member_data[:first_name], 
         last_name: member_data[:last_name], 
         address: member_data[:address], 
@@ -76,7 +75,7 @@ module StoneacreHq
                             } 
                           })
 
-      @conn.post MEMBER_URL, { member: post_message }
+      @conn.post MEMBER_URL, { api_key: StoneacreHq.config[:api_key], member: post_message }
     end
 
     ##
