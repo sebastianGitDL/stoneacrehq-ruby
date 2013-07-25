@@ -19,7 +19,13 @@ at release time.
  or
  StoneacreHq.config(:api_key => 'my_token')
 
+== Install
 
+In your Gemfile, add:
+
+    gem 'stoneacre_hq', :git => 'git@github.com:stoneacre/stoneacrehq-ruby.git'
+
+and run $ bundle install.
 
 == How to test?
 
