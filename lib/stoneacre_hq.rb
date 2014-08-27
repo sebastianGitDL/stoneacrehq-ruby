@@ -2,7 +2,7 @@ require 'stoneacre_hq/config'
 require 'faraday'
 
 module StoneacreHq
-  DEVELOPMENT_URL = 'https://dev.stoneacrehq.com:3000/'.freeze
+  DEVELOPMENT_URL = 'https://dev.affinitystop.com:3000/'.freeze
   PRODUCTION_URL = 'https://api.stoneacrehq.com/'.freeze
   MEMBER_URL = '/api/v1/members'.freeze
   PRODUCT_URL = '/api/v1/products'.freeze

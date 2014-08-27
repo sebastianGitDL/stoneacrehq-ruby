@@ -51,6 +51,7 @@ module StoneacreHq
             campaign_medium: campaign_data[:campaign_medium], 
             campaign_description: campaign_data[:campaign_description], 
             campaign_medium_version: campaign_data[:campaign_medium_version], 
+            source: campaign_data[:source], 
             joint: campaign_data[:joint]
         }
       }
