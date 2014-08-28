@@ -16,11 +16,12 @@ module StoneacreHq
     # the member's data (including its credit card) and, in case it is correct, it will create and save the member.
     # It will also send a welcome email and charge the enrollment to the member's credit card.  
     def create(member_data = {}, credit_card_data = {}, campaign_data = {})
+      prospect_id = nil
       unless member_data[:prospect_id]
         prospect = Prospect.new 
         answer = prospect.create(member_data, campaign_data)
-        puts answer.inspect
-        member_data[:prospect_id] = answer[:prospect_id] if answer[:code] == "000"
+        answer = JSON.parse answer.body
+        prospect_id = answer['prospect_id'] if answer['code'] == "000"
       end
       member_message = {
         first_name: member_data[:first_name], 
@@ -39,7 +40,7 @@ module StoneacreHq
         external_id: member_data[:external_id], 
         terms_of_membership_id: member_data[:terms_of_membership_id], 
         birth_date: member_data[:birth_date], 
-        prospect_id: member_data[:prospect_id], 
+        prospect_id: prospect_id, 
 
         enrollment_amount: campaign_data[:enrollment_amount], 
         product_sku: campaign_data[:product_sku], 
