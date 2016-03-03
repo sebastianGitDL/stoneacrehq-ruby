@@ -2,13 +2,18 @@ module StoneacreHq
   class Member
     # Constructs a Member.
     #
-    # More API information at https://dev.stoneacrehq.com:3000/doc/Api/MembersController.html
+    # More API information at https://dev.affinitystop.com:3000/doc/Api/MembersController.html
     #
     def initialize
       @conn = Faraday.new(
         :url => (StoneacreHq.config[:production] ? PRODUCTION_URL : DEVELOPMENT_URL ),
         :ssl => { :verify => StoneacreHq.config[:production] }
-      ) 
+      ) do |builder|
+        builder.request :json
+        builder.response :mashify
+        builder.response :json, :content_type => /\bjson$/
+        builder.adapter  Faraday.default_adapter
+      end
     end
     
     ##
@@ -127,11 +132,32 @@ module StoneacreHq
     ##
     # Returns information related to member's information, credit card, current membership and enrollment information.
     #
-    def profile
-      @conn.post MEMBER_URL+'/'+member_data[:id].to_s+'/profile', post_message
+    def profile(member_id)
+      @conn.post MEMBER_URL+'/'+member_id.to_s+'/profile', { api_key: StoneacreHq.config[:api_key] }
+    end
+
+    ##
+    # Change actual subscription plans related to a member, with the option to prorate it.
+    #
+    def update_terms_of_membership(id_or_email, terms_of_membership_id, credit_card_data = {}, prorated = true)
+      post_message = {
+        api_key: StoneacreHq.config[:api_key],
+        id_or_email: id_or_email,
+        terms_of_membership_id: terms_of_membership_id,
+        prorated: prorated
+      }
+
+      if credit_card_data
+        post_message.merge!( credit_card: {
+          number: credit_card_data[:number],
+          expire_year: credit_card_data[:expire_year],
+          expire_month: credit_card_data[:expire_month],
+          set_active: (credit_card_data[:set_active].nil? ? true : credit_card_data[:set_active])
+        })
+      end
+
+      @conn.post MEMBER_URL+'/update_terms_of_membership', post_message
     end
 
   end
 end
-
-
