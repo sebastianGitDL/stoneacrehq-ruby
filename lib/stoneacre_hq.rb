@@ -11,4 +11,5 @@ module StoneacreHq
   autoload :Member, 'stoneacre_hq/member'
   autoload :Prospect, 'stoneacre_hq/prospect'
   autoload :Product, 'stoneacre_hq/product'
+  autoload :ClubCashTransaction, 'stoneacre_hq/club_cash_transaction'
 end
