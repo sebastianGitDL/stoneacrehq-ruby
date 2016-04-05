@@ -1,5 +1,5 @@
 module StoneacreHq
-  class ClubCashTransaction
+  class ClubCashTransaction < StoneacreHq::Base
     #
     # More API information at https://dev.affinitystop.com:3000/doc/Api/ClubCashTransactionController.html
     #

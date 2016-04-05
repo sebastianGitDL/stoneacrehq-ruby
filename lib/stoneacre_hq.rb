@@ -9,6 +9,7 @@ module StoneacreHq
   PROSPECT_URL = '/api/v1/prospects'.freeze
   TOKEN_URL = '/api/v1/tokens'.freeze
 
+  autoload :Base, 'stoneacre_hq/base'
   autoload :Member, 'stoneacre_hq/member'
   autoload :Prospect, 'stoneacre_hq/prospect'
   autoload :Product, 'stoneacre_hq/product'

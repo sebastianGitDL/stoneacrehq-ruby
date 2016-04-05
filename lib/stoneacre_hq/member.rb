@@ -1,21 +1,6 @@
 module StoneacreHq
-  class Member
-    # Constructs a Member.
-    #
-    # More API information at https://dev.affinitystop.com:3000/doc/Api/MembersController.html
-    #
-    def initialize
-      @conn = Faraday.new(
-        :url => (StoneacreHq.config[:production] ? PRODUCTION_URL : DEVELOPMENT_URL ),
-        :ssl => { :verify => StoneacreHq.config[:production] }
-      ) do |builder|
-        builder.request :json
-        builder.response :mashify
-        builder.response :json, :content_type => /\bjson$/
-        builder.adapter  Faraday.default_adapter
-      end
-    end
-    
+  class Member < StoneacreHq::Base
+   
     ##
     # Submits a member to be created. This method will call the method enroll on member model. It will validate
     # the member's data (including its credit card) and, in case it is correct, it will create and save the member.
