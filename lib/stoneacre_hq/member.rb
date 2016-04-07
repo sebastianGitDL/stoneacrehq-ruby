@@ -29,7 +29,7 @@ module StoneacreHq
         type_of_phone_number: member_data[:type_of_phone_number], 
         external_id: member_data[:external_id], 
         terms_of_membership_id: member_data[:terms_of_membership_id], 
-        birth_date: member_data[:birth_date], 
+        birth_date: member_data[:birth_date],
         prospect_id: prospect_id, 
 
         enrollment_amount: campaign_data[:enrollment_amount], 
@@ -66,12 +66,10 @@ module StoneacreHq
 
       post_message = { 
         api_key: StoneacreHq.config[:api_key], 
-        member: member_message 
-      }.merge(credit_card_data.nil? ? { 
-                setter: { 
-                  cc_blank: true
-                } 
-              } : {})
+        member: member_message
+      }
+      
+      post_message.merge!({ setter: { cc_blank: true }}) if credit_card_data[:cc_blank]
 
       @conn.post MEMBER_URL, post_message
     end
